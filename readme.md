@@ -3,7 +3,7 @@ Web-based e-voting solution powered by Node.js and AWS Lambda.
 
 ## Server
   - Register-post
-  - Login-get
+  - Login-post
   - User-get
   - User-Organizations-get
   - User-Organization-get

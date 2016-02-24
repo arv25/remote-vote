@@ -1,0 +1,6 @@
+#set($inputRoot = $input.path('$'))
+{
+  "email" : $input.json('$.email'),
+  "password" : $input.json('$.password'),
+  "stage_name" : "${stageVariables.stage_name}"
+}

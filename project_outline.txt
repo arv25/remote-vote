@@ -95,7 +95,7 @@ User:
     { email, password }
     { user_id }
 
-  login/get
+  login/post
     { email, password }
     { user_id }
 
