@@ -1,0 +1,197 @@
+Web-based e-voting solution powered by Node.js and AWS Lambda.
+
+Modules:
+  User registraion via email (3 handshake)
+  User can crud elections.
+  Users can vote in elections.
+  Votes in an election are tabulated and added to an ElectionResults
+
+
+Domain:
+  User
+  Election
+  ElectionResults
+  Vote
+
+
+Server Use Cases:
+  User Registration
+    User registers by providing an email address and password.
+    Server adds user email and password to dynamoDB.
+    Server sends email to user to verify email.
+    User clicks link in email and sends verification to server.
+    Server removes verification_code. User is now verified.
+
+      User table has user_id, email, password and verification_code.
+
+  User can CRUD an Organization
+    User can create an Organization with a organization_name and organization_description.
+    User can list the Organizations they've created.
+    User can de-activate an Organization that has no active Elections.
+    User can update the details of an Organization at any time.
+    Organization_name must be unique among all users organizations.
+
+      Organziation table has organization_id, organization_name, organization_description and created_by_user_id.
+
+  Users can invite other users to an organization.
+    Organization owners can use email addresses to invite other users to be part of their organization.
+    Organization owners can remove users from their organization.
+
+      Organization_users table has id, organization_id and user_id
+
+  User CRUD Election
+    An election can be created under an organization that the user owns.
+    User can create an election by providing an organization_name, election_name and an election_description.
+    An Election is composed of those user inputs, plus the user's id, status and closing_date.
+    All new elections have the status of Planning.
+    Closing_date must be in the future.
+    Election status can be Planning, Live, Closed.
+    Only when an election is in the Planning state, can users can modify or delete it.
+    Elections can have multiple Contenders.
+    An election must have at least one Contender to go Live.
+    Users can set an election to Live so others can vote on it.
+    When an election goes live, ElectionResults for aggregating votes are created.
+
+      Election table has election_id, organization_id, created_by_user_id, election_name, election_description, status, closing_date.
+
+  User Can CRUD Contenders To An Election
+    User can add a contender to an Election that is in the Planning state by specifying the name and description.
+    User can update a contender that's already in an election.
+    Contender names within an election must be unique.
+    Contenders can be removed from an Election
+
+      Contender table has contender_id, election_id, contender_name, contender_description.
+
+  Users Can Query Elections
+    Users can see what elections have been created by all Organization of which they are member, that are not in the Planning state.
+    Users can filter elections by states.
+    Users can find elections created by a particular user email.
+      Users can find elections created by themselves.
+    If an election is closed, users can see the election results.
+
+  Users Can Vote On Elections
+    Users can cast a vote on contenders in elections that are in the Live state.
+    A vote records the user, election identifier, contender_identifier along with the vote and the time of voting.
+    When a user casts a vote, it is aggregated in to the ElectionResults table.
+    A user can only vote Yes/No for one contender in an election.
+    When votes occur they are incremented in the ElectionResults.
+
+      Vote table has vote_id, election_id, contender_id, user_id, vote_enum(Yes, No) and vote_timestamp.
+
+  User can view Election Results
+    Each time any user votes for a candidate in the election of any organization, the ElectionResults counters are incremented.
+
+      ElectionResultsTable has election_id, contender_id, yes_count, no_count and last_updated_timestamp.
+
+  Go'vt registry
+    Nat_id, email, gov't official who entered the info.
+
+
+API endpoints
+
+User:
+
+  register/post
+    { email, password }
+    { user_id }
+
+  login/get
+    { email, password }
+    { user_id }
+
+  user/get
+    { user_id }
+    { email, owned_organization_ids, owned_election_ids }
+
+
+Organizations:
+
+  user/organizations/get
+    { user_id }
+    { organization_ids }
+
+  user/organization/get
+    { user_id, organization_id }
+    { organization_name, organization_description, election_ids }
+
+  user/organization/post
+    { user_id, organization_id, name, description }
+    { organization_id }
+
+  user/organization/delete
+    { user_id, organization_id }
+    { boolean }
+
+
+Organization Users:
+
+  user/organization/members/get
+    { user_id, organization_id }
+    { user_emails }
+
+  user/organization/member/post
+    { user_id, organization_id, email }
+    { user_email }
+
+  user/organization/member/delete
+    { user_id, organization_id }
+    { boolean }
+
+
+Elections:
+
+  user/organization/elections/get
+    { user_id, organization_id }
+    { election_ids }
+
+  user/organization/election/get
+    { user_id, organization_id, election_id }
+    { name, description, status, closing_date, contender_ids }
+
+  user/organization/election/post
+    { user_id, organization_id, election_name, election_description, status, closing_date }
+    { election_id }
+
+  user/organization/election/delete
+    { user_id, organization_id }
+    { boolean }
+
+
+Contenders:
+
+  user/organization/election/contenders/get
+    { user_id, organization_id, election_id, contender_id }
+    { contender_ids }
+
+  user/organization/election/contender/get
+    { user_id, organization_id, election_id, contender_id }
+    { name, description }
+
+  user/organization/election/contender/post
+    { user_id organization_id, election_id, name, description, action }
+    { contender_id }
+
+  user/organization/election/contender/delete
+    { user_id organization_id, election_id, contender_id }
+    { boolean }
+
+Votes:
+
+  user/votes/get
+    { user_id }
+    { vote_ids }
+
+  user/vote/get
+    { user_id }
+    { vote_id, election_id, contender_id, vote_enum }
+
+  user/organization/election/contender/vote/post
+    { user_id, organization_id, election_id, contender_id, vote_enum }
+    { vote_id }
+
+
+Results:
+
+  user/organizations/elections/results/get
+    { user_id }
+    { election_ids: { election_id, contender_id, yes_counts, no_counts } }

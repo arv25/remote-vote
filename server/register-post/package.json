@@ -1,0 +1,17 @@
+{
+  "name": "register-post",
+  "version": "1.0.0",
+  "description": "Remote-Vote App - Register user via email.",
+  "main": "index.js",
+  "author": "arv25",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "0.4.*",
+    "grunt-aws-lambda": "0.*.*",
+    "aws-sdk": "2.2.36"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
+
