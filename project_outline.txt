@@ -127,14 +127,18 @@ Organization Users:
 
   user/organization/members/get
     { user_id, organization_id }
-    { user_emails }
+    { user_ids }
+
+  user/organization/member/get
+    { user_id, organization_id, member_user_id }
+    { email }
 
   user/organization/member/post
     { user_id, organization_id, email }
-    { user_email }
+    { user_id }
 
   user/organization/member/delete
-    { user_id, organization_id }
+    { user_id, organization_id, member_user_id }
     { boolean }
 
 
@@ -195,3 +199,6 @@ Results:
   user/organizations/elections/results/get
     { user_id }
     { election_ids: { election_id, contender_id, yes_counts, no_counts } }
+
+
+TODO: Add session ids to users
