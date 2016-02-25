@@ -2,6 +2,6 @@
 {
   "user_id" : "$input.params('user_id')",
   "organization_id" : "$input.params('organization_id')",
-  "election" : "$input.params('election_id')",
+  "election_id" : "$input.params('election_id')",
   "stage_name" : "${stageVariables.stage_name}"
 }
