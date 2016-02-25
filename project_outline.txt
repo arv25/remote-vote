@@ -196,8 +196,8 @@ Votes:
 
 Results:
 
-  user/organizations/elections/results/get
-    { user_id }
+  user/organization/elections/results/get
+    { user_id, organization_id }
     { election_ids: { election_id, contender_id, yes_counts, no_counts } }
 
 
