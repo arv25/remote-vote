@@ -1,0 +1,9 @@
+#set($inputRoot = $input.path('$'))
+{
+  "user_id" : $input.json('$.user_id'),
+  "organization_id" : $input.json('$.organization_id'),
+  "election_id" : $input.json('$.election_id'),
+  "contender_id" : $input.json('$.contender_id'),
+  "vote_enum" : $input.json('$.vote_enum'),
+  "stage_name" : "${stageVariables.stage_name}"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "user-org-election-contender-vote-post",
+  "version": "1.0.0",
+  "description": "Remote-Vote App - Create a new vote for a contender for an election of an organization under a user.",
+  "main": "index.js",
+  "author": "arv25",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "0.4.*",
+    "grunt-aws-lambda": "0.*.*",
+    "aws-sdk": "2.2.36"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
