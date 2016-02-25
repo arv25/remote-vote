@@ -1,0 +1,17 @@
+{
+  "name": "user-organization-get",
+  "version": "1.0.0",
+  "description": "Remote-Vote App - Retrieve data for an individual organization under the user.",
+  "main": "index.js",
+  "author": "arv25",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "0.4.*",
+    "grunt-aws-lambda": "0.*.*",
+    "aws-sdk": "2.2.36"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
+
