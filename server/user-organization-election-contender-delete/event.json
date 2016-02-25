@@ -1,0 +1,7 @@
+{
+  "user_id" : "foo_user_id",
+  "organization_id" : "foo_organization_id",
+  "election_id" : "foo_election_id",
+  "contender_id" : "foo contender_id",
+  "stage_name" : "stag"
+}
