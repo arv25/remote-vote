@@ -172,7 +172,7 @@ Contenders:
     { name, description }
 
   user/organization/election/contender/post
-    { user_id organization_id, election_id, name, description, action }
+    { user_id organization_id, election_id, name, description }
     { contender_id }
 
   user/organization/election/contender/delete
