@@ -1,7 +1,6 @@
 {
   "user_id" : "foo_user_id",
-  "organization_id" : "foo_organization_id",
-  "name" : "foo organization name",
-  "description" : "foo organization description",
+  "organization_name" : "foo organization name",
+  "organization_description" : "foo organization description",
   "stage_name" : "stag"
 }

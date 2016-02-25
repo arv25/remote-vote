@@ -95,7 +95,7 @@ User:
     { email, password }
     { user_id }
 
-  login/post
+  login/post - done
     { email, password }
     { user_id }
 
@@ -114,8 +114,8 @@ Organizations:
     { user_id, organization_id }
     { organization_name, organization_description, election_ids }
 
-  user/organization/post
-    { user_id, organization_id, name, description }
+  user/organization/post - working
+    { user_id, name, description }
     { organization_id }
 
   user/organization/delete
