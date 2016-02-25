@@ -164,7 +164,7 @@ Elections:
 Contenders:
 
   user/organization/election/contenders/get
-    { user_id, organization_id, election_id, contender_id }
+    { user_id, organization_id, election_id }
     { contender_ids }
 
   user/organization/election/contender/get
