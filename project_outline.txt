@@ -157,7 +157,7 @@ Elections:
     { election_id }
 
   user/organization/election/delete
-    { user_id, organization_id }
+    { user_id, organization_id, election_id }
     { boolean }
 
 
