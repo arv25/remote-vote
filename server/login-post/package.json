@@ -12,6 +12,9 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "dependencies": {
+    "scrypt": "^6.0.1",
+    "uuid": "^2.0.1"
   }
 }
-
