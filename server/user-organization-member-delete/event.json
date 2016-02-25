@@ -1,0 +1,6 @@
+{
+  "user_id" : "foo_user_id",
+  "organization_id" : "foo_organization_id",
+  "member_user_id" : "foo_member_user_id",
+  "stage_name" : "stag"
+}

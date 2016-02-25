@@ -1,0 +1,16 @@
+{
+  "name": "user-organization-member-delete",
+  "version": "1.0.0",
+  "description": "Remote-Vote App - Delete a member of an organization under a user.",
+  "main": "index.js",
+  "author": "arv25",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "0.4.*",
+    "grunt-aws-lambda": "0.*.*",
+    "aws-sdk": "2.2.36"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
