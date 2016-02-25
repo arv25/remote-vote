@@ -20,14 +20,14 @@ grunt.initConfig({
   },
   lambda_deploy: {
     default: {
-      arn: 'arn:aws:lambda:us-east-1:509101369464:function:remote-vote-stag-server-user-organizations-member-get',
+      arn: 'arn:aws:lambda:us-east-1:509101369464:function:remote-vote-stag-server-user-organization-member-get',
       options: {
         aliases: 'stag',
         enableVersioning: true
       }
     },
     prod: {
-      arn: 'arn:aws:lambda:us-east-1:509101369464:function:remote-vote-prod-server-user-organizations-member-get',
+      arn: 'arn:aws:lambda:us-east-1:509101369464:function:remote-vote-prod-server-user-organization-member-get',
       options: {
         aliases: 'prod',
         enableVersioning: true

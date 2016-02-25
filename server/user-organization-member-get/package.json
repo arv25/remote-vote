@@ -1,5 +1,5 @@
 {
-  "name": "user-organizations-member-get",
+  "name": "user-organization-member-get",
   "version": "1.0.0",
   "description": "Remote-Vote App - Retrieve a member for an organization under the user.",
   "main": "index.js",
