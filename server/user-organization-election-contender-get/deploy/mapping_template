@@ -1,0 +1,8 @@
+#set($inputRoot = $input.path('$'))
+{
+  "user_id" : "$input.params('user_id')",
+  "organization_id" : "$input.params('organization_id')",
+  "election_id" : "$input.params('election_id')",
+  "contender_id" : "$input.params('contender_id')",
+  "stage_name" : "${stageVariables.stage_name}"
+}

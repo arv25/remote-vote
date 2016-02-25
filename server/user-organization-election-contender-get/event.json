@@ -1,0 +1,7 @@
+{
+  "stage_name": "stag",
+  "user_id": "ABCDEF1234",
+  "organization_id": "DEFHIJ4567",
+  "election_id": "foo election id",
+  "contender_id": "foo contender id"
+}
