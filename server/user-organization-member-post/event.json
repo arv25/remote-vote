@@ -1,6 +1,6 @@
 {
   "user_id" : "foo_user_id",
   "organization_id" : "foo_organization_id",
-  "email" : "foo@bar.com",
+  "member_email" : "foo@bar.com",
   "stage_name" : "stag"
 }
