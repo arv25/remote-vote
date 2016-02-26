@@ -1,9 +1,9 @@
 {
   "user_id" : "foo_user_id",
   "organization_id" : "foo_organization_id",
-  "name" : "foo name",
-  "description" : "foo description",
-  "status" : "foo status",
-  "closing_date" : "foo closing_date",
+  "election_name" : "foo name",
+  "election_description" : "foo description",
+  "election_status" : "foo status",
+  "election_closing_date" : "foo closing_date",
   "stage_name" : "stag"
 }

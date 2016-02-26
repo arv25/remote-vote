@@ -2,9 +2,9 @@
 {
   "user_id" : $input.json('$.user_id'),
   "organization_id" : $input.json('$.organization_id'),
-  "name" : $input.json('$.name'),
-  "description" : $input.json('$.description'),
-  "status" : $input.json('$.status'),
-  "closing_date" : $input.json('$.closing_date'),
+  "election_name" : $input.json('$.election_name'),
+  "election_description" : $input.json('$.election_description'),
+  "election_status" : $input.json('$.election_status'),
+  "election_closing_date" : $input.json('$.election_closing_date'),
   "stage_name" : "${stageVariables.stage_name}"
 }

@@ -12,5 +12,8 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "dependencies": {
+    "uuid": "^2.0.1"
   }
 }
