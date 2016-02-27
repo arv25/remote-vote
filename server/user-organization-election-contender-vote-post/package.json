@@ -14,6 +14,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "bluebird": "^3.3.3"
+    "bluebird": "^3.3.3",
+    "extend": "^3.0.0"
   }
 }
