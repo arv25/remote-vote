@@ -1,0 +1,5 @@
+#set($inputRoot = $input.path('$'))
+{
+  "new_vote" : $input.json('$.new_vote'),
+  "stage_name" : "${stageVariables.stage_name}"
+}

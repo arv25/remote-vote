@@ -1,0 +1,20 @@
+{
+  "name": "vote-aggregator",
+  "version": "1.0.0",
+  "description": "Remote-Vote App - Aggregates votes into counters as they come in.",
+  "main": "index.js",
+  "author": "arv25",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "0.4.*",
+    "grunt-aws-lambda": "0.*.*",
+    "aws-sdk": "2.2.36"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.3",
+    "uuid": "^2.0.1"
+  }
+}
