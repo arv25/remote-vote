@@ -114,7 +114,7 @@ Organizations:
     { user_id, organization_id }
     { organization_name, organization_description, election_ids }
 
-  user/organization/post - working
+  user/organization/post - done
     { user_id, name, description }
     { organization_id }
 
@@ -133,7 +133,7 @@ Organization Users:
     { user_id, organization_id, member_user_id }
     { email }
 
-  user/organization/member/post
+  user/organization/member/post - done
     { user_id, organization_id, email }
     { user_id }
 
@@ -152,7 +152,7 @@ Elections:
     { user_id, organization_id, election_id }
     { name, description, status, closing_date, contender_ids }
 
-  user/organization/election/post
+  user/organization/election/post - done
     { user_id, organization_id, election_name, election_description, status, closing_date }
     { election_id }
 
@@ -171,7 +171,7 @@ Contenders:
     { user_id, organization_id, election_id, contender_id }
     { name, description }
 
-  user/organization/election/contender/post
+  user/organization/election/contender/post - done
     { user_id organization_id, election_id, name, description }
     { contender_id }
 
@@ -189,12 +189,16 @@ Votes:
     { user_id }
     { vote_id, election_id, contender_id, vote_enum }
 
-  user/organization/election/contender/vote/post
+  user/organization/election/contender/vote/post - done
     { user_id, organization_id, election_id, contender_id, vote_enum }
     { vote_id }
 
 
 Results:
+
+  lambda::vote-aggregator - done
+  (old_vote, new_vote)
+  updates atomic counter
 
   user/organization/elections/results/get
     { user_id, organization_id }
