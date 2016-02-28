@@ -99,7 +99,7 @@ User:
     { email, password }
     { user_id }
 
-  user/get
+  user/get - done
     { user_id }
     { email, owned_organization_ids, owned_election_ids }
 
@@ -110,7 +110,7 @@ Organizations:
     { user_id }
     { organization_ids }
 
-  user/organization/get
+  user/organization/get - done
     { user_id, organization_id }
     { organization_name, organization_description, election_ids }
 
