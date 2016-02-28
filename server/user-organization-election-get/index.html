@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/bootstrap.css">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/source.css">
+    <title>Remote-vote</title>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            Election: {{election.election_name}} is {{election.election_status}}
+          </div>
+          <div class="panel-body">
+            Contenders:
+            <ul>
+              {{#contenders}}
+              <li>
+                <p class="masthead-lead">
+                <a href="./organization/election/contender?user_id={{../user_id}}&organization_id={{../org_id}}&election_id={{../election_id}}&contender_id={{contender_id}}">
+                  {{contender_name}}
+                </a>
+                   - {{contender_description}}
+                </p>
+              </li>
+              {{/contenders}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
