@@ -61,6 +61,7 @@ exports.handler = function(event, context) {
           <!DOCTYPE html>
           <html>
             <head>
+              <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/source.css">
             </head>
             <body>
               Organizations {{user_id}}
