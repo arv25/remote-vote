@@ -14,6 +14,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "bluebird": "^3.3.3",
     "handlebars": "^4.0.5"
   }
 }
