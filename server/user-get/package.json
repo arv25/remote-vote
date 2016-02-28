@@ -12,6 +12,8 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.5"
   }
 }
-
