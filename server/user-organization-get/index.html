@@ -7,24 +7,28 @@
     <title>Remote-vote</title>
   </head>
   <body>
-    <div class="masthead">
-      <h1 class="masthead-title">
-        Organization: {{organization.organization_name}}
-      </h1>
-      <h2>
-        Elections:
-      </h2>
-      <ul>
-        {{#elections}}
-        <li>
-          <p class="masthead-lead">
-          <a href="./organization/election?user_id={{../user_id}}&organization_id={{../org_id}}&election_id={{election_id}}">
-            {{election_name}}
-          </a>
-          </p>
-        </li>
-        {{/elections}}
-      </ul>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Organization: {{organization.organization_name}}
+          </div>
+          <div class="panel-body">
+            Elections:
+            <ul>
+              {{#elections}}
+              <li>
+                <p class="masthead-lead">
+                <a href="./organization/election?user_id={{../user_id}}&organization_id={{../org_id}}&election_id={{election_id}}">
+                  {{election_name}}
+                </a>
+                </p>
+              </li>
+              {{/elections}}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

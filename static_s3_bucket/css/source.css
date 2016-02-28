@@ -2,3 +2,7 @@ body {
   background-color: lightblue;
   margin-left: 10px;
 }
+
+.panel {
+  margin: 10px;
+}
