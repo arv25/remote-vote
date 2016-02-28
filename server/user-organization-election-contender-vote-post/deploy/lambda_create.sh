@@ -5,7 +5,7 @@ aws lambda create-function \
   --handler index.handler \
   --runtime nodejs \
   --memory 128 \
-  --timeout 5 \
+  --timeout 10 \
   --role arn:aws:iam::509101369464:role/lambda_dynamo \
   --zip-file fileb://./dist/user-org-election-contender-vote-post_1-0-0_latest.zip
 
@@ -21,7 +21,7 @@ aws lambda create-function \
   --handler index.handler \
   --runtime nodejs \
   --memory 128 \
-  --timeout 5 \
+  --timeout 10 \
   --role arn:aws:iam::509101369464:role/lambda_dynamo \
   --zip-file fileb://./dist/user-org-election-contender-vote-post_1-0-0_latest.zip
 
