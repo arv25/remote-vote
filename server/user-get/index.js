@@ -63,17 +63,18 @@ exports.handler = function(event, context) {
             <head>
             </head>
             <body>
-              Organizations
+              Organizations {{user_id}}
               <ul>
                 {{#organizations}}
-                  <li id={{organization_id}}>{{organization_name}}</li>
+                  <li><a href="./user/organization?user_id={{../user_id}}&organization_id={{organization_id}}">{{organization_name}}</a></li>
                 {{/organizations}}
               </ul>
             </body>
           </html>
           */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
 
-        var data = { "organizations" : orgs };
+
+        var data = { "user_id": event.user_id, "organizations" : orgs };
         var template = handlebars.compile(source);
         var results = template(data);
 
