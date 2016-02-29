@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/bootstrap.css">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/source.css">
+    <title>Remote-vote</title>
+  </head>
+  <body>
+    <div class="row">
+
+      <div class="col-sm-4">
+        <h3>Current User</h3>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            {{user_id}}
+          </div>
+          <div class="panel-body">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <h3>Organizations</h3>
+        {{#organizations}}
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <p class="masthead-lead">
+                <a href="./user/organization?user_id={{../user_id}}&organization_id={{organization_id}}" style="color: white;">
+                {{organization_name}}
+                </a>
+              </p>
+            </div>
+            <div class="panel-body">
+              <p>
+                <strong>Description:</strong> {{organization_description}}
+              </p>
+            </div>
+          </div>
+        {{/organizations}}
+      </div>
+
+    </div>
+  </body>
+</html>

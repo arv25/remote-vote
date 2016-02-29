@@ -4,6 +4,7 @@ var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 var handlebars = require('handlebars');
 var Promise = require("bluebird");
+var readFile = Promise.promisify(require('fs').readFile);
 Promise.promisifyAll(Object.getPrototypeOf(dynamodb));
 
 
@@ -30,20 +31,35 @@ function getOrganizations(event, context) {
   return dynamodb.queryAsync({
     "TableName": tableName,
     "IndexName": "user_id-index",
-    "ProjectionExpression": "organization_name, organization_id",
+    "ProjectionExpression": "organization_description, organization_name, organization_id",
     "KeyConditionExpression": "user_id = :v1",
     "ExpressionAttributeValues": {
       ":v1": { "S": event.user_id }
     }
   }).then(function(data) {
-   var results = dynamoOrgIdsCollector(data);
-   console.log("Successfully retrieved organizations from DB: " + JSON.stringify(results));
-   return results;
+    var results = dynamoOrgIdsCollector(data);
+    console.log("Successfully retrieved organizations from DB: " + JSON.stringify(results));
+    return results;
 
   }).catch(function(err) {
     var err_msg = "Error retrieving organizations from DB: " + err;
     console.log(err_msg);
     console.fail(err_msg);
+
+  });
+};
+
+
+function getSourceHTML(context) {
+  return readFile('index.html').then(function(data) {
+    console.log("Successfully retrieved template from file.");
+    //console.log(data.toString());
+    return data.toString();
+
+  }).catch(function(err) {
+    var err_msg = "Error retrieving template from file: " + err;
+    console.log(err_msg);
+    context.fail(err_msg);
 
   });
 };
@@ -55,25 +71,8 @@ exports.handler = function(event, context) {
 
   Promise.join(
       getOrganizations(event, context),
-      function(orgs) {
-
-        var source = (function() { /*
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/source.css">
-            </head>
-            <body>
-              Organizations {{user_id}}
-              <ul>
-                {{#organizations}}
-                  <li><a href="./user/organization?user_id={{../user_id}}&organization_id={{organization_id}}">{{organization_name}}</a></li>
-                {{/organizations}}
-              </ul>
-            </body>
-          </html>
-          */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
+      getSourceHTML(context),
+      function(orgs, source) {
 
         var data = { "user_id": event.user_id, "organizations" : orgs };
         var template = handlebars.compile(source);
