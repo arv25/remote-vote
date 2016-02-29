@@ -8,27 +8,39 @@
   </head>
   <body>
     <div class="row">
+
       <div class="col-sm-4">
+        <h3>Organization</h3>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            Organization: {{organization.organization_name}}
+            {{organization.organization_name}}
           </div>
           <div class="panel-body">
-            Elections:
-            <ul>
-              {{#elections}}
-              <li>
-                <p class="masthead-lead">
-                <a href="./organization/election?user_id={{../user_id}}&organization_id={{../org_id}}&election_id={{election_id}}">
-                  {{election_name}}
-                </a>
-                </p>
-              </li>
-              {{/elections}}
-            </ul>
+             {{organization.organization_description}}
           </div>
         </div>
       </div>
+
+      <div class="col-sm-4">
+        <h3>Elections</h3>
+        {{#elections}}
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <p class="masthead-lead">
+                <a href="./organization/election?user_id={{../user_id}}&organization_id={{../org_id}}&election_id={{election_id}}" style="color: white;">
+                  {{election_name}}
+                </a>
+              </p>
+            </div>
+            <div class="panel-body">
+              <p>
+                <strong>Description:</strong> {{election_description}}
+              </p>
+            </div>
+          </div>
+        {{/elections}}
+      </div>
+
     </div>
   </body>
 </html>

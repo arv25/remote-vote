@@ -31,7 +31,7 @@ function getElections(event, context) {
   return dynamodb.queryAsync({
     "TableName": tableName,
     "IndexName": "organization_id-index",
-    "ProjectionExpression": "election_id, election_name",
+    "ProjectionExpression": "election_id, election_name, election_description",
     "KeyConditionExpression": "organization_id = :v1",
     "FilterExpression": "user_id = :v2",
     "ExpressionAttributeValues": {
