@@ -6,3 +6,11 @@ body {
 .panel {
   margin: 10px;
 }
+
+.vote_form_container {
+  display: inline;
+}
+
+.vote_form {
+  display: inherit;
+}
