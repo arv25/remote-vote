@@ -91,7 +91,7 @@ function dynamoStringDataToHash(data) {
 
 
 function generateVoteIdCompositeKey(event) {
-  return [event.user_id, event.organization_id, event.election_id, event.contender_id].join("--");
+  return [event.user_id, event.organization_id, event.election_id].join("--");
 }
 
 
