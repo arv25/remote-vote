@@ -91,7 +91,7 @@ function dynamoStringDataToHash(data) {
 
 
 function generateVoteIdCompositeKey(event) {
-  return event.user_id + event.organization_id + event.election_id + event.contender_id
+  return [event.user_id, event.organization_id, event.election_id, event.contender_id].join("--");
 }
 
 
@@ -116,82 +116,42 @@ function existingVote(event, context){
 };
 
 
-function persist_vote(event, context) {
-  var stage_name = event.stage_name;
-  var votes_table_name = ["remote-vote-", stage_name, "-votes"].join("");
-  var generated_vote_id = generateVoteIdCompositeKey(event);
-
-  dynamodb.putItem({
-    "TableName": votes_table_name,
-    "Item": {
-      "user_id": {
-        "S": event.user_id
-      },
-      "organization_id": {
-        "S": event.organization_id
-      },
-      "election_id": {
-        "S": event.election_id
-      },
-      "contender_id": {
-        "S": event.contender_id
-      },
-      "vote_id": {
-        "S": generated_vote_id
-      },
-      "vote_enum": {
-        "S": event.vote_enum
-      }
-    }
-  }, function(err, data) {
-    if (err) {
-      var failure_msg = ['ERROR: Remote-Vote-', stage_name, '-vote-post failed to complete. - ', err].join("");
-      console.log(failure_msg);
-      context.fail(failure_msg);
-
-    } else {
-      var success_msg = ['SUCCESS: Remote-Vote-', stage_name, '-vote-post completed successfully.'].join("");
-      console.log(success_msg);
-      context.succeed(success_msg);
-    }
-  })
-};
-
-
 exports.handler = function(event, context) {
   console.log("Request received:\n", JSON.stringify(event));
   console.log("Context received:\n", JSON.stringify(context));
 
-  var stage_name = event.stage_name;
-
   Promise.join(
-      referentialIntegrity(context, "remote-vote-"+stage_name+"-users", "user_id", event.user_id),
-      referentialIntegrity(context, "remote-vote-"+stage_name+"-organizations", "organization_id", event.organization_id),
-      referentialIntegrity(context, "remote-vote-"+stage_name+"-elections", "election_id", event.election_id),
-      referentialIntegrity(context, "remote-vote-"+stage_name+"-contenders", "contender_id", event.contender_id),
+      referentialIntegrity(context, "remote-vote-"+event.stage_name+"-users", "user_id", event.user_id),
+      referentialIntegrity(context, "remote-vote-"+event.stage_name+"-organizations", "organization_id", event.organization_id),
+      referentialIntegrity(context, "remote-vote-"+event.stage_name+"-elections", "election_id", event.election_id),
+      referentialIntegrity(context, "remote-vote-"+event.stage_name+"-contenders", "contender_id", event.contender_id),
       electionOpenForVoting(event, context),
       existingVote(event, context),
       function(users, orgs, elections, contenders, openElections, existingVote) {
-        var shouldBePersisted = users && orgs && elections && contenders && openElections;
-        console.log("Should be persisted: " + shouldBePersisted);
+        var passesReferentialIntegrity = users && orgs && elections && contenders && openElections;
 
-        if (shouldBePersisted) {
+        if (passesReferentialIntegrity) {
+          console.log("Referential integrity checks passed, delegating to aggregator for persistence.");
           var payload = extend(true, existingVote, event);
 
           var lambda = new AWS.Lambda();
           lambda.invoke({
-            FunctionName: "remote-vote-" + stage_name + "-server-vote-aggregator",
+            FunctionName: "remote-vote-" + event.stage_name + "-server-vote-aggregator",
             Payload: JSON.stringify(payload)
 
           }, function(err, data) {
             if(err) {
-              console.log(err);
+              console.log("Aggregator encountered an error: " + err);
 
             } else {
-              //console.log("Data from lambda cascade: " + JSON.stringify(data));
-              persist_vote(event, context);
+              var response = "Response data from lambda cascade: " + JSON.stringify(data);
+              console.log(response);
+              context.succeed(response);
+
             }
           });
+        } else {
+          context.fail("Did not pass referential integrity check.");
         };
       });
 };
