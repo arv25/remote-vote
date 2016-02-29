@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/bootstrap.css">
   <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/bootstrap-theme.css">
   <link rel="stylesheet" href="https://s3.amazonaws.com/remote-vote-static/css/source.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <title>Remote-vote</title>
 </head>
 <body>
@@ -33,15 +34,66 @@
         </p>
         </div>
         <div class="panel-body">
-          <strong>Description:</strong> {{contender_description}}
           <p>
-            <button type="button" class="btn btn-sm btn-success" id="{{contender_id}}-yes">Vote Yes</button>
-            <button type="button" class="btn btn-sm btn-danger" id="{{contender_id}}-no">Vote No</button>
+            <strong>Description:</strong> {{contender_description}}
           </p>
+          <div class="vote_form_container">
+            <button id="{{contender_id}}-button-yes"
+                    onClick="postVote('#{{contender_id}}-button-yes')"
+                    class="btn btn-sm btn-success vote_form"
+                    url="./election/contender/vote"
+                    method="POST"
+                    user_id="{{../user_id}}"
+                    organization_id="{{../org_id}}"
+                    election_id="{{../election_id}}"
+                    contender_id="{{contender_id}}"
+                    vote_enum="yes">
+              Vote Yes
+            </button>
+            <button id="{{contender_id}}-button-no"
+                    onClick="postVote('#{{contender_id}}-button-no')"
+                    class="btn btn-sm btn-danger vote_form"
+                    url="./election/contender/vote"
+                    method="POST"
+                    user_id="{{../user_id}}"
+                    organization_id="{{../org_id}}"
+                    election_id="{{../election_id}}"
+                    contender_id="{{contender_id}}"
+                    vote_enum="no">
+              Vote No
+            </button>
+          </div>
         </div>
       </div>
       {{/contenders}}
     </div>
   </div>
+  <script type="text/javascript">
+    function postVote(buttonId) {
+      var jsonPayload = {
+        user_id: $(buttonId).attr("user_id"),
+        organization_id: $(buttonId).attr("organization_id"),
+        election_id: $(buttonId).attr("election_id"),
+        contender_id: $(buttonId).attr("contender_id"),
+        vote_enum: $(buttonId).attr("vote_enum")
+      }
+      console.log(jsonPayload);
+      console.log(JSON.stringify(jsonPayload));
+
+      $.ajax({
+        type: $(buttonId).attr("method"),
+        url: $(buttonId).attr("url"),
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(jsonPayload),
+        success: function(msg) {
+          console.log(msg);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("Status: " + textStatus + " -- " + errorThrown);
+        }
+      });
+    };
+  </script>
 </body>
 </html>
