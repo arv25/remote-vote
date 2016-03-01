@@ -144,7 +144,7 @@ exports.handler = function(event, context) {
               console.log("Aggregator encountered an error: " + err);
 
             } else {
-              var response = "Response data from lambda cascade: " + JSON.stringify(data);
+              var response = "SUCCESS Response data from lambda cascade.";
               console.log(response);
               context.succeed(response);
 
