@@ -148,7 +148,7 @@ Elections:
     { user_id, organization_id }
     { election_ids }
 
-  user/organization/election/get
+  user/organization/election/get - done
     { user_id, organization_id, election_id }
     { name, description, status, closing_date, contender_ids }
 
