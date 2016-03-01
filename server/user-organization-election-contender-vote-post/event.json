@@ -3,6 +3,6 @@
   "organization_id" : "6c4693f0-bba4-42bb-a936-86adde8066b7",
   "election_id" : "b320fe5f-c715-4ebb-b147-f91485b2412b",
   "contender_id" : "69a8da68-04e5-4ba7-9699-7bd24658a642",
-  "vote_enum" : "Yes",
+  "vote_enum" : "yes",
   "stage_name" : "stag"
 }
