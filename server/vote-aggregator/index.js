@@ -31,6 +31,9 @@ function incrementCounter(event, context, valueToIncrement) {
       },
       "contender_id": {
         "S": event.contender_id
+      },
+      "vote_enum": {
+        "S": event.vote_enum
       }
     }
   }).finally(function(data) {
@@ -84,12 +87,21 @@ function votesDiffer(event) {
     "vote_enum" : event.vote_enum
   };
 
-  var results = !deepEqual(event["existing_vote"], new_vote);
-  //console.log(event["existing_vote"]);
-  //console.log(new_vote);
-  console.log("diff? == " + results);
+  // var results = !deepEqual(event["existing_vote"], new_vote);
 
-  return results;
+  var old_vote = event["existing_vote"];
+  var same =
+    event.user_id === old_vote.user_id &&
+    event.organization_id === old_vote.organization_id &&
+    event.election_id === old_vote.election_id &&
+    event.contender_id === old_vote.contender_id &&
+    event.vote_enum === old_vote.vote_enum;
+
+  console.log(event["existing_vote"]);
+  console.log(new_vote);
+  console.log("diff? == " + !same);
+
+  return !same;
 };
 
 
