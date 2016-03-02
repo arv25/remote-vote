@@ -61,11 +61,11 @@ function getElection(event, context) {
     "TableName": tableName,
     "ProjectionExpression": "election_name, election_description, election_status, election_closing_date",
     "KeyConditionExpression": "election_id = :v1",
-    "FilterExpression": "user_id = :v2 and organization_id = :v3",
+    //"FilterExpression": "user_id = :v2 and organization_id = :v3",
     "ExpressionAttributeValues": {
       ":v1": { "S": event.election_id },
-      ":v2": { "S": event.user_id },
-      ":v3": { "S": event.organization_id }
+      // ":v2": { "S": event.user_id },
+      // ":v3": { "S": event.organization_id }
     }
   }).then(function(data) {
     var results = dynamoStringFieldsCollector(data)[0];
